@@ -34,6 +34,20 @@ namespace ZombieParty.Controllers
 
             return View(zombieVM);
         }
+
+        // 2 & 3. Copie de GET Create modifiée sous le nom de Edit avec le paramètre id
+        public IActionResult Edit(int id)
+        {
+            ZombieVM zombieVM = new ZombieVM();
+            zombieVM.Zombie = _baseDonnees.Zombies.Find(id);
+            zombieVM.ZombieTypeSelectList = _baseDonnees.ZombieTypes.Select(t => new SelectListItem
+            {
+                Text = t.TypeName,
+                Value = t.Id.ToString()
+            }).OrderBy(t => t.Text);
+
+            return View(zombieVM);
+        }
         public IActionResult StrongestZombies()
         {
             List<Zombie> zombiesList = _baseDonnees.Zombies
@@ -47,6 +61,7 @@ namespace ZombieParty.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(ZombieVM zombieVM)
         {
             //Si le modèle est valide le zombie est ajouté et nous sommes redirigé vers index.
@@ -57,6 +72,29 @@ namespace ZombieParty.Controllers
                 TempData["Success"] = $"Zombie {zombieVM.Zombie.Name} added";
                 return this.RedirectToAction("Index");
             }
+            zombieVM.ZombieTypeSelectList = _baseDonnees.ZombieTypes.Select(t => new SelectListItem
+            {
+                Text = t.TypeName,
+                Value = t.Id.ToString()
+            }).OrderBy(t => t.Text);
+
+            return View(zombieVM);
+        }
+
+        // 1 & 2. Copie de POST Create nommée Edit avec protection anti-falsification
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ZombieVM zombieVM)
+        {
+            // 3. Modification pour mettre à jour le zombie existant (Le point d'arrêt va ici pour l'étape 4)
+            if (ModelState.IsValid)
+            {
+                _baseDonnees.Zombies.Update(zombieVM.Zombie);
+                _baseDonnees.SaveChanges();
+                TempData["Success"] = $"Zombie {zombieVM.Zombie.Name} has been modified";
+                return this.RedirectToAction("Index");
+            }
+
             zombieVM.ZombieTypeSelectList = _baseDonnees.ZombieTypes.Select(t => new SelectListItem
             {
                 Text = t.TypeName,
