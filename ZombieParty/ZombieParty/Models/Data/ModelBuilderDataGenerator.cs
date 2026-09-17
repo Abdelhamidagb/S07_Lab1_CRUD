@@ -48,7 +48,10 @@ namespace ZombieParty.Data
             #region Weapon
             builder.Entity<Weapon>().HasData(
                 new Weapon() { WeaponId = 1, Name = "Leopold", Description = "This is to cut your friendly zombies", Force = 200, Image = "https://i.ibb.co/y5nCnXT/dagger-gfce31e967-1920.png", Price = 421, Qty = 21, QtyBought = 3, CreatedDate = new DateTime(1999, 01, 1) },
-                new Weapon() { WeaponId = 2, Name = "Master Shield", Description = "An awesome Stainless Steel Shield", Force = 10, Image = "https://publicdomainvectors.org/photos/Shield-ClassicMedieval1.png", Price = 500, Qty = 30, QtyBought = 1, CreatedDate = new DateTime(1999, 01, 1) }
+                new Weapon() { WeaponId = 2, Name = "Master Shield", Description = "An awesome Stainless Steel Shield", Force = 10, Image = "https://publicdomainvectors.org/photos/Shield-ClassicMedieval1.png", Price = 500, Qty = 30, QtyBought = 1, CreatedDate = new DateTime(1999, 01, 1)},
+                new Weapon(){WeaponId = 3,Name = "The Exorcist",Description = "A sacred relic designed to smite the undead with holy fire.", Force = 350,Image = "https://example.com", Price = 750, Qty = 5,QtyBought = 0, CreatedDate = new DateTime(2026, 09, 17)
+                            }
+
             );
             #endregion
         }
