@@ -5,18 +5,13 @@
         <div class="col-10">
             <h2 class="text-primary">Zombie</h2>
         </div>
-        <div class="col-2 text-right">
-            <a asp-action="Create" class="btn btn-success">
-                Create New Zombie
-            </a>
-        </div>
     </div>
 
     <div class="row">
         @foreach (var item in Model)
         {
-            <div href="#" class="card  border m-3 text-center bg-warning" style="width: 20rem; background-image: url('/images/imagesLayout/Fond.png'); ">
-                <div class="card-body  text-warning">
+            <div href="#" class="card border m-3 text-center bg-warning" style="width: 20rem; background-image: url('/images/imagesLayout/Fond.png'); ">
+                <div class="card-body text-warning">
                     <h3 class="card-title">@item.Name</h3>
                     <h5> @item.Point </h5>
                     <h5 class="text-success"> @item.ZombieType.TypeName </h5>
@@ -25,4 +20,6 @@
             </div>
         }
     </div>
+
 </div>
+
